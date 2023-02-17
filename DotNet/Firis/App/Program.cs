@@ -10,12 +10,12 @@ Log.Logger = new DotNetLogger();
 
 APP.Scene.AddComponent<TimerComponent>();
 
-//APP.Scene.AddComponent<NetTcpComponent, IPEndPoint, IMessageDispatcher>(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001), new MessageDispatcher());
-//APP.Scene.GetComponent<NetTcpComponent>().Load("Module");
+APP.Scene.AddComponent<NetTcpComponent, IPEndPoint, IMessageDispatcher>(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001), new MessageDispatcher());
+APP.Scene.GetComponent<NetTcpComponent>().Load("Module");
 
-APP.Scene.AddComponent<NetKcpComponent, IPEndPoint, IMessageDispatcher>(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001), new MessageDispatcher());
-APP.Scene.GetComponent<NetKcpComponent>().OnlyLoad("Module");
-APP.Scene.GetComponent<NetKcpComponent>().GeneLoad();
+//APP.Scene.AddComponent<NetKcpComponent, IPEndPoint, IMessageDispatcher>(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001), new MessageDispatcher());
+//APP.Scene.GetComponent<NetKcpComponent>().OnlyLoad("Module");
+//APP.Scene.GetComponent<NetKcpComponent>().GeneLoad();
 
 //APP.Scene.AddComponent<WebSocketComponent, List<string>, IMessageDispatcher>(new List<string> { "http://127.0.0.1:10001/AAA/" }, new MessageDispatcher());
 //APP.Scene.GetComponent<WebSocketComponent>().Load("Module");

@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace Firis
 {
-    public class AOIComponent : Component
+    public class AOIComponent : Component, IAwake
     {
-        private static Dictionary<int, AOIMap> Maps { get; set; } = new Dictionary<int, AOIMap>();
+        public static AOIComponent Instance { get; set; }
 
-        public static AOIMap GetMap(int mapID)
+        public void Awake()
+        {
+            Instance = this;
+        }
+
+        private Dictionary<int, AOIMap> Maps { get; set; } = new Dictionary<int, AOIMap>();
+
+        public AOIMap GetMap(int mapID)
         {
             if (Maps.ContainsKey(mapID))
                 return Maps[mapID];
@@ -19,7 +26,7 @@ namespace Firis
                 return null;
         }
 
-        public static void CreateMap(int mapID, int gridSize)
+        public void CreateMap(int mapID, int gridSize)
         {
             if (Maps.ContainsKey(mapID))
             {
@@ -29,7 +36,7 @@ namespace Firis
             Maps.Add(mapID, EntityFactory.CreatWithID<AOIMap, int>(mapID, gridSize));
         }
 
-        public static void AddMap(int mapID, AOIEntity entity)
+        public void AddMap(int mapID, AOIEntity entity)
         {
             if (!Maps.ContainsKey(mapID))
             {
@@ -39,7 +46,7 @@ namespace Firis
             Maps[mapID].Add(entity);
         }
 
-        public static void AddMap(int mapID, AOIEntity entity, Vector3 position)
+        public void AddMap(int mapID, AOIEntity entity, Vector3 position)
         {
             if (!Maps.ContainsKey(mapID))
             {

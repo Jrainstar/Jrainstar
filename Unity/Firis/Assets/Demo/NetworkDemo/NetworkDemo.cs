@@ -13,13 +13,13 @@ public class NetworkDemo : MonoBehaviour
     {
         Log.Logger = new UnityLogger();
 
-        //var net = APP.Scene.AddComponent<NetTcpComponent, IMessageDispatcher>(new MessageDispatcher());
-        //net.Load("Module");
-        //Session = APP.Scene.GetComponent<NetTcpComponent>().Create(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001));
-
-        var net = APP.Scene.AddComponent<NetKcpComponent, IMessageDispatcher>(new MessageDispatcher());
+        var net = APP.Scene.AddComponent<NetTcpComponent, IMessageDispatcher>(new MessageDispatcher());
         net.Load("Module");
-        Session = APP.Scene.GetComponent<NetKcpComponent>().Create(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001));
+        Session = APP.Scene.GetComponent<NetTcpComponent>().Create(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001));
+
+        //var net = APP.Scene.AddComponent<NetKcpComponent, IMessageDispatcher>(new MessageDispatcher());
+        //net.Load("Module");
+        //Session = APP.Scene.GetComponent<NetKcpComponent>().Create(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10001));
 
         //var net = APP.Scene.AddComponent<WebSocketComponent, IMessageDispatcher>(new MessageDispatcher());
         //net.Load("Module");
