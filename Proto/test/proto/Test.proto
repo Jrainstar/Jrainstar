@@ -1,0 +1,25 @@
+message M0000_C2S_Test0 // IMessage
+{
+    optional string human = 1;
+    optional int32 age = 2;
+}
+
+message M0000_S2C_Test1 // IMessage
+{
+    repeated string human = 3;
+    optional int32 age = 2;
+}
+
+message R0000_C2S_Test2 // IRequest
+{
+    optional int32 RpcID = 1;
+    optional string pokeName = 2;
+}
+
+message R0000_S2C_Test2 // IResponse
+{
+    optional int32 RpcID = 1;
+    optional int32 Error = 2;
+    optional string pokeName = 3;
+    optional int32 level = 4;
+}

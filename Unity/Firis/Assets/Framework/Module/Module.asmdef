@@ -1,0 +1,17 @@
+{
+    "name": "Module",
+    "rootNamespace": "",
+    "references": [
+        "Core",
+        "ThridParty"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

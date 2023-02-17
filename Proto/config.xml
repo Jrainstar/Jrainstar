@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<rule>
+		<proto>test/proto/Test.proto</proto>
+		<floder>test/cs</floder>
+		<floder>../Unity/Firis/Assets/Framework/Module/Network/Proto/Test/Message</floder>
+		<floder>../DotNet/Firis/Module/Network/Proto/Test/Message</floder>
+	</rule>
+</config>
