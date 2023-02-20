@@ -94,6 +94,9 @@
     <Compile Include="Assets\Framework\Module\Network\Core\Tcp\TPacket.cs" />
     <Compile Include="Assets\Framework\Module\DataStruct\MultiMap.cs" />
     <Compile Include="Assets\Framework\Module\Network\Proto\Base\IMessageDispatcher.cs" />
+    <Compile Include="Assets\Framework\Module\Pool\ObjectPool.cs" />
+    <Compile Include="Assets\Framework\Module\Ease\Ease.cs" />
+    <Compile Include="Assets\Framework\Module\Bezier\Bezier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Module\Network\Core\Kcp\Plugins\x86_64\kcp.dll" />
