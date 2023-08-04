@@ -12,31 +12,27 @@ namespace Firis
         public int childCount => Children.Count;
 
         private List<Entity> Children = new List<Entity>();
-        private Dictionary<Type, List<Component>> Components = new Dictionary<Type, List<Component>>();
+        private List<Component> Components = new List<Component>();
 
         public Component AddComponent(Type type)
         {
             Component component;
-            if (!Components.ContainsKey(type))
-            {
-                Components.Add(type, new List<Component>());
-            }
             bool allowMult = true;
             var attributes = type.GetCustomAttributes(typeof(DisallowMultipleComponentAttribute), true);
             if (attributes.Count() != 0)
             {
                 allowMult = false;
             }
-            
-            var components = Components[type];
-            if (components.Count != 0 && !allowMult)
+
+            var count = Components.Count(com => com.GetType() == type);
+            if (count != 0 && !allowMult)
             {
                 Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
                 return null;
             }
-            
+
             component = ComponentFactory.Create(type, this);
-            components.Add(component);
+            Components.Add(component);
             return component;
         }
 
@@ -48,16 +44,12 @@ namespace Firis
 
         /// <summary>
         /// 已有Component实例，将其附在此entity上（如component已有父entity，则会先移除原关系）
-        /// 若组件 是 DisallowMultipleComponent 目标如果已经拥有此组件
-        /// isSafe 等于 false 放弃
-        /// isSafe 等于 true 将目标的该组件移除 再顶替
-        /// 不推荐使用此种方式 因为 dispose 调用后 数据 任然会消失
+        /// 若组件 是 DisallowMultipleComponent 目标如果已经拥有此组件 则操作无效
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="component"></param>
-        /// <param name="isSafe"></param>
         /// <returns></returns>
-        public T AddComponent<T>(T component, bool isSafe) where T : Component
+        public T AddComponent<T>(T component) where T : Component
         {
             Type type = typeof(T);
             if (component == null)
@@ -73,137 +65,128 @@ namespace Firis
                 allowMult = false;
             }
 
-            var components = Components[type];
-            if (components.Count != 0 && !allowMult)
+            var count = Components.Count(com => com.GetType() == type);
+            if (count != 0 && !allowMult)
             {
-                if (isSafe)
-                {
-                    Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
-                    return null;
-                }
-                RemoveComponent<T>(component);
+                Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
+                return null;
             }
 
             Entity raw = component.Entity;
             raw.RemoveComponent<T>(component, false);
 
-            components.Add(component);
+            Components.Add(component);
             component.Entity = this;
-            return null;
+            return component;
         }
 
         public T AddComponent<T, A>(A a) where T : Component
         {
             Type type = typeof(T);
             Component component;
-            if (!Components.ContainsKey(type))
-            {
-                Components.Add(type, new List<Component>());
-            }
             bool allowMult = true;
-            var attributes = type.GetCustomAttributes(true);
-            if (attributes.Contains(typeof(DisallowMultipleComponentAttribute)))
+            var attributes = type.GetCustomAttributes(typeof(DisallowMultipleComponentAttribute), true);
+            if (attributes.Count() != 0)
             {
                 allowMult = false;
             }
-            var components = Components[type];
-            if (components.Count != 0 && !allowMult)
+
+            var count = Components.Count(com => com.GetType() == type);
+            if (count != 0 && !allowMult)
             {
                 Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
                 return null;
             }
+
             component = ComponentFactory.Create<T, A>(a);
             component.Entity = this;
-            components.Add(component);
+            Components.Add(component);
+
             return component as T;
         }
         public T AddComponent<T, A, B>(A a, B b) where T : Component
         {
             Type type = typeof(T);
             Component component;
-            if (!Components.ContainsKey(type))
-            {
-                Components.Add(type, new List<Component>());
-            }
             bool allowMult = true;
-            var attributes = type.GetCustomAttributes(true);
-            if (attributes.Contains(typeof(DisallowMultipleComponentAttribute)))
+            var attributes = type.GetCustomAttributes(typeof(DisallowMultipleComponentAttribute), true);
+            if (attributes.Count() != 0)
             {
                 allowMult = false;
             }
-            var components = Components[type];
-            if (components.Count != 0 && !allowMult)
+
+            var count = Components.Count(com => com.GetType() == type);
+            if (count != 0 && !allowMult)
             {
-                Console.WriteLine($" --- {type.Name} 组件 不允许挂载多个 --- ");
+                Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
                 return null;
             }
+
             component = ComponentFactory.Create<T, A, B>(a, b);
             component.Entity = this;
-            components.Add(component);
+            Components.Add(component);
+
             return component as T;
         }
         public T AddComponent<T, A, B, C>(A a, B b, C c) where T : Component
         {
             Type type = typeof(T);
             Component component;
-            if (!Components.ContainsKey(type))
-            {
-                Components.Add(type, new List<Component>());
-            }
             bool allowMult = true;
-            var attributes = type.GetCustomAttributes(true);
-            if (attributes.Contains(typeof(DisallowMultipleComponentAttribute)))
+            var attributes = type.GetCustomAttributes(typeof(DisallowMultipleComponentAttribute), true);
+            if (attributes.Count() != 0)
             {
                 allowMult = false;
             }
-            var components = Components[type];
-            if (components.Count != 0 && !allowMult)
+
+            var count = Components.Count(com => com.GetType() == type);
+            if (count != 0 && !allowMult)
             {
                 Log.Error($" --- {type.Name} 组件 不允许挂载多个 --- ");
                 return null;
             }
+
             component = ComponentFactory.Create<T, A, B, C>(a, b, c);
             component.Entity = this;
-            components.Add(component);
+            Components.Add(component);
+
             return component as T;
         }
 
         public Component GetComponent(Type type)
         {
-            if (!Components.ContainsKey(type))
+            var components = Components.Where(com => com.GetType() == type);
+
+            if (components.Count() == 0)
             {
                 Log.Warn($" --- {type.Name} 组件 不存在 --- ");
                 return null;
             }
-            var components = Components[type];
-            if (components.Count == 0)
-            {
-                Log.Warn($" --- {type.Name} 组件 不存在 --- ");
-                return null;
-            }
-            return components[0];
+
+            return components.First();
         }
+
         public T GetComponent<T>() where T : Component
         {
             Type type = typeof(T);
             return GetComponent(type) as T;
         }
 
-        public List<Component> GetComponents(Type type)
+        public IEnumerable<Component> GetComponents(Type type)
         {
-            if (!Components.ContainsKey(type))
+            var components = Components.Where(com => com.GetType() == type);
+            if (components.Count() == 0)
             {
                 Log.Warn($" --- {type.Name} 组件 不存在 --- ");
                 return null;
             }
-            var components = Components[type];
             return components;
         }
-        public List<T> GetComponents<T>() where T : Component
+        public IEnumerable<T> GetComponents<T>() where T : Component
         {
             Type type = typeof(T);
             var components = GetComponents(type);
-            return components as List<T>;
+            return components as IEnumerable<T>;
         }
 
         public void RemoveComponent<T>() where T : Component
@@ -213,40 +196,36 @@ namespace Firis
         }
         public void RemoveComponent(Type type)
         {
-            if (!Components.ContainsKey(type))
+            var components = Components.Where(com => com.GetType() == type);
+
+            if (components.Count() == 0)
             {
                 Log.Warn($" --- {type.Name} 组件 不存在 --- ");
                 return;
             }
-            var components = Components[type];
-            if (components != null && components.Count != 0)
-            {
-                components[0].Dispose();
-                components.RemoveAt(0);
-            }
+
+            var component = components.First();
+            component.Dispose();
+            Components.Remove(component);
         }
 
-        public void RemoveComponent<T>(T component, bool dispose = true) where T : Component
+        public bool RemoveComponent<T>(T component, bool dispose = true) where T : Component
         {
-            RemoveComponent(component, dispose);
+            return RemoveComponent(component, dispose);
         }
 
-        public void RemoveComponent(Component component, bool dispose)
+        public bool RemoveComponent(Component component, bool dispose)
         {
-            Type type = component.GetType();
-            if (!Components.ContainsKey(type))
+            if (Components.Remove(component))
             {
-                Log.Warn($" --- {type.Name} 组件 不存在 --- ");
-                return;
+                if (dispose) component.Dispose();
+                return true;
             }
-            var components = Components[type];
-            if (!components.Contains(component))
+            else
             {
-                Log.Warn($" --- {type.Name} 组件 不存在 --- ");
-                return;
+                Log.Warn($" --- {component} 组件 不存在 --- ");
+                return false;
             }
-            components.Remove(component);
-            if (dispose) component.Dispose();
         }
 
         public T AddChild<T>() where T : Entity
@@ -389,15 +368,14 @@ namespace Firis
                 return;
             }
             this.IsDisposed = true;
-            foreach (var comps in Components.Values)
+
+            foreach (var component in Components)
             {
-                foreach (var comp in comps)
-                {
-                    EventSystem.Instance.Remove(comp);
-                    comp.Entity = null;
-                    comp.Dispose();
-                }
+                EventSystem.Instance.Remove(component);
+                component.Entity = null;
+                component.Dispose();
             }
+
             foreach (Entity entity in Children)
             {
                 EventSystem.Instance.Remove(entity);

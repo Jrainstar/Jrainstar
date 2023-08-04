@@ -21,7 +21,7 @@ namespace Firis
             IsDisposed = true;
             if (Entity != null)
             {
-                Entity.RemoveComponent(GetType());
+                Entity.RemoveComponent(this);
                 Entity = null;
             }
             EventSystem.Instance.Remove(this);
@@ -29,13 +29,6 @@ namespace Firis
     }
     public class ComponentFactory
     {
-        //public static Component Create(Type type)
-        //{
-        //    Component component = Activator.CreateInstance(type) as Component;
-        //    EventSystem.Instance.Awake(component);
-        //    return component;
-        //}
-
         public static Component Create(Type type, Entity entity)
         {
             Component component = Activator.CreateInstance(type) as Component;
