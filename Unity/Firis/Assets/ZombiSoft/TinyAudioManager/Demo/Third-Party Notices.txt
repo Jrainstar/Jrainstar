@@ -1,0 +1,27 @@
+This asset is governed by the Asset Store EULA; however, the following components are governed by the licenses indicated below:
+
+The sounds are downloaded from freesound (https://freesound.org/)
+
+Funky Loop by mvrasseli ( http://freesound.org/people/mvrasseli/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Single Gunshot 3.wav by morganpurkis ( http://freesound.org/people/morganpurkis/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Heathers Gunshot Effect2.wav by okieactor ( http://freesound.org/people/okieactor/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Layered Gunshot 5.wav by Xenonn ( http://freesound.org/people/Xenonn/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+!Ambient 4.wav by eliwynnmusic ( http://freesound.org/people/eliwynnmusic/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+forest_ambient_01_loop.wav by devlab ( http://freesound.org/people/devlab/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Boink_v3.wav by simon.rue ( http://freesound.org/people/simon.rue/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Bonk.wav by Harrisando ( http://freesound.org/people/Harrisando/ )
+License: Creative Commons 0 cc0 (https://creativecommons.org/publicdomain/zero/1.0/legalcode)

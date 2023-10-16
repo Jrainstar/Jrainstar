@@ -2,34 +2,9 @@
 
 namespace Firis
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-    public class DisallowMultipleComponentAttribute : Attribute
+    public static class ComponentFactory
     {
-
-    }
-
-    public abstract class Component : ISystem, IDisposable
-    {
-        public Entity Entity { get; internal set; }
-        public bool IsDisposed { get; set; }
-        public virtual void Dispose()
-        {
-            if (IsDisposed)
-            {
-                return;
-            }
-            IsDisposed = true;
-            if (Entity != null)
-            {
-                Entity.RemoveComponent(this);
-                Entity = null;
-            }
-            EventSystem.Instance.Remove(this);
-        }
-    }
-    public class ComponentFactory
-    {
-        public static Component Create(Type type, Entity entity)
+        public static Component Create(this Entity entity, Type type)
         {
             Component component = Activator.CreateInstance(type) as Component;
             component.Entity = entity;
@@ -37,7 +12,7 @@ namespace Firis
             return component;
         }
 
-        public static T Create<T>(Entity entity) where T : Component
+        public static T Create<T>(this Entity entity) where T : Component
         {
             T component = Activator.CreateInstance<T>();
             component.Entity = entity;
@@ -45,30 +20,34 @@ namespace Firis
             return component;
         }
 
-        public static T Create<T, A>(A a) where T : Component
+        public static T Create<T, A>(this Entity entity, A a) where T : Component
         {
             T component = Activator.CreateInstance<T>();
+            component.Entity = entity;
             EventSystem.Instance.Awake(component, a);
             return component;
         }
 
-        public static T Create<T, A, B>(A a, B b) where T : Component
+        public static T Create<T, A, B>(this Entity entity, A a, B b) where T : Component
         {
             T component = Activator.CreateInstance<T>();
+            component.Entity = entity;
             EventSystem.Instance.Awake(component, a, b);
             return component;
         }
 
-        public static T Create<T, A, B, C>(A a, B b, C c) where T : Component
+        public static T Create<T, A, B, C>(this Entity entity, A a, B b, C c) where T : Component
         {
             T component = Activator.CreateInstance<T>();
+            component.Entity = entity;
             EventSystem.Instance.Awake(component, a, b, c);
             return component;
         }
 
-        public static T Create<T, A, B, C, D>(A a, B b, C c, D d) where T : Component
+        public static T Create<T, A, B, C, D>(this Entity entity, A a, B b, C c, D d) where T : Component
         {
             T component = Activator.CreateInstance<T>();
+            component.Entity = entity;
             EventSystem.Instance.Awake(component, a, b, c, d);
             return component;
         }
