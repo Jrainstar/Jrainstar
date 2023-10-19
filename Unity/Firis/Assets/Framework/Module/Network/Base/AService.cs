@@ -16,7 +16,7 @@ namespace Firis
 
         protected abstract void Get(long id, IPEndPoint address);
 
-        public abstract void Dispose();
+        public virtual void Dispose() { }
 
         protected abstract void Send(long channelId, MemoryStream stream);
 
@@ -38,9 +38,9 @@ namespace Firis
         }
 
 
-        public Action<long, IPEndPoint> AcceptCallback;
-        public Action<long, int> ErrorCallback;
-        public Action<long, MemoryStream> ReadCallback;
+        public Action<long, IPEndPoint> AcceptCallback { get; set; }
+        public Action<long, int> ErrorCallback { get; set; }
+        public Action<long, MemoryStream> ReadCallback { get; set; }
 
         public void Destroy()
         {

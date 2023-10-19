@@ -102,6 +102,13 @@
     <Compile Include="Assets\Framework\Module\Network\Core\Tcp\TPacket.cs" />
     <Compile Include="Assets\Framework\Module\DataStruct\MultiMap.cs" />
     <Compile Include="Assets\Framework\Module\Network\Proto\Base\IMessageDispatcher.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Core\Kcpc\KChannel.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Base\MemoryBuffer.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Core\Kcpc\KService.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Basee\AChannel.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Basee\AService.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Core\Tcpe\TChannel.cs" />
+    <Compile Include="Assets\Framework\Module\Network\Core\Tcpe\TService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Framework\Module\Network\Core\Kcp\Plugins\x86_64\kcp.dll" />
